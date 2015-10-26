@@ -5,7 +5,7 @@ Bundler.require
 my_crawl = AnemoneCrawl.new
 
 # クローリング先のURL
-my_crawl.url = "http://news.yahoo.co.jp/flash"
+my_crawl.urls.push("http://news.yahoo.co.jp/flash")
 
 # クローリングする記事の日付
 # 指定しなければ現在の日付

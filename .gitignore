@@ -2,3 +2,5 @@
 *.swp
 data/*
 vendor/*
+config/*
+sql/*
