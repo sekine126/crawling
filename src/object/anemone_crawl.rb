@@ -18,8 +18,8 @@ class AnemoneCrawl
     @urls = []
     @date = Date.today.strftime("%Y%m%d")
     @user_agent = "TsukubaCrawler"
-    @delay = 3
-    @depth_limit = 0
+    @delay = 10
+    @depth_limit = 1
     @focus_pattern = ""
     @url_xpath = ""
     @filename = "default"
@@ -37,6 +37,8 @@ class AnemoneCrawl
     set_options
     @get_urls = []
     @urls.each do |url|
+      puts "==> " + url
+      count = 0
       Anemone.crawl(url, @opts) do |anemone|
         # 条件に一致するリンクだけを残す
         anemone.focus_crawl do |page|
@@ -46,20 +48,10 @@ class AnemoneCrawl
         end
 
         anemone.on_pages_like(/#{@focus_pattern}/) do |page|
-          print "crawling url = "
-          p page.url
-          # スクレイピング
-          charset = nil
-          html = open(page.url) do |f|
-            charset = f.charset
-            f.read 
-          end
-          doc = Nokogiri::HTML.parse(html, nil, charset)
-          doc.xpath(@url_xpath).each do |node|
-            @get_urls.push(node.attribute('href').value)
-            print "save url = "
-            p node.attribute('href').value
-          end
+          count += 1
+          print "crawling...#{count} pages\r"
+          do_scrape(page.url)
+          STDOUT.flush
         end
       end
     end
@@ -69,24 +61,16 @@ class AnemoneCrawl
   def scrape
     set_options
     @get_urls = []
+    count = 0
     @urls.each do |url|
-      print "scraping url = "
-      p url
+      count += 1
+      puts "==> " + url
+      print "scraping...#{get_percent(count,@urls.size)}%\r"
       @get_urls.push("##")
       @get_urls.push(url)
-      # スクレイピング
-      charset = nil
-      html = open(url) do |f|
-        charset = f.charset
-        f.read 
-      end
-      doc = Nokogiri::HTML.parse(html, nil, charset)
-      doc.xpath(@url_xpath).each do |node|
-        @get_urls.push(node.attribute('href').value)
-        print "save url = "
-        p node.attribute('href').value
-      end
+      do_scrape(url)
       sleep(@delay)
+      STDOUT.flush
     end
     save_file
   end
@@ -110,4 +94,25 @@ class AnemoneCrawl
       end
     end
   end
+
+  def do_scrape(url)
+    charset = nil
+    begin
+      html = open(url) do |f|
+        charset = f.charset
+        f.read 
+      end
+    rescue OpenURI::HTTPError => e
+      return
+    end
+    doc = Nokogiri::HTML.parse(html, nil, charset)
+    doc.xpath(@url_xpath).each do |node|
+      @get_urls.push(node.attribute('href').value)
+    end
+  end
+
+  def get_percent(x,y)
+    (x.to_f/y*100).round
+  end
+
 end
