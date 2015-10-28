@@ -116,7 +116,7 @@ class AnemoneCrawl
   def do_scrape(url)
     count = 0
     charset = nil
-    url = url.strip.delete("\n\r")
+    url = url.delete("\n\r")
     encoded_url = URI.encode(url.to_s)
     begin
       html = open(encoded_url) do |f|
