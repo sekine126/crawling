@@ -66,6 +66,7 @@ class AnemoneCrawl
     @urls.each do |url|
       count += 1
       puts "==> " + url
+      url = url.strip.delete("\n\r")
       c = do_scrape(url)
       puts "==> get urls : " + c.to_s
       print "scraping...#{get_percent(count,@urls.size)}%\r"
@@ -84,6 +85,7 @@ class AnemoneCrawl
       puts "==> " + url
       @get_urls.push("##")
       @get_urls.push(url)
+      url = url.strip.delete("\n\r")
       c = do_scrape(url)
       puts "==> get urls : " + c.to_s
       print "scraping...#{get_percent(count,@urls.size)}%\r"
@@ -116,7 +118,6 @@ class AnemoneCrawl
   def do_scrape(url)
     count = 0
     charset = nil
-    url = url.delete("\n\r")
     encoded_url = URI.encode(url.to_s)
     begin
       html = open(encoded_url) do |f|
