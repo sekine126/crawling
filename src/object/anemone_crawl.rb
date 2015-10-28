@@ -107,9 +107,12 @@ class AnemoneCrawl
       return
     end
     doc = Nokogiri::HTML.parse(html, nil, charset)
+    count = 0
     doc.xpath(@url_xpath).each do |node|
+      count += 1
       @get_urls.push(node.attribute('href').value)
     end
+    puts "==> get urls : " + count.to_s
   end
 
   def get_percent(x,y)
