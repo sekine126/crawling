@@ -23,7 +23,6 @@ my_crawl.urls.push("http://www.excite.co.jp/News/column_g/"+params["d"]+"/")
 my_crawl.urls.push("http://www.excite.co.jp/News/economy_g/"+params["d"]+"/")
 my_crawl.urls.push("http://www.excite.co.jp/News/it_g/"+params["d"]+"/")
 my_crawl.urls.push("http://www.excite.co.jp/News/world_g/"+params["d"]+"/")
-my_crawl.urls.push(""+params["d"]+"/")
 
 # スクレイピングする記事の日付
 # 指定しなければ現在の日付
