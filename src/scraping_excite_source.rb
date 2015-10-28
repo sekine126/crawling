@@ -16,6 +16,9 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
+# 先頭に
+# http://www.excite.co.jp/
+# をつけて##と次の１行を削除
 my_crawl.set_urls("./data/excite_headline_"+params["d"]+".txt")
 
 # スクレイピングする記事の日付
