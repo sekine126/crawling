@@ -29,7 +29,7 @@ my_crawl.urls.push("http://www.excite.co.jp/News/world_g/"+params["d"]+"/")
 my_crawl.date = params["d"]
 
 # 取得するURLのXpathを設定
-my_crawl.url_xpath = '//div[@class="newsList"]//a[@href="'+params["d"]+'"]'
+my_crawl.url_xpath = '//div[@class="newsList"]//a[contains(@href,"'+params["d"]+'")]'
 
 # セーブするファイルの名前
 my_crawl.filename = "excite_source"
