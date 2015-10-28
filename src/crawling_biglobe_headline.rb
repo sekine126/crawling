@@ -15,21 +15,25 @@ end
 
 my_crawl = AnemoneCrawl.new
 
-# スクレイピング先のURL
-# excite_headline_20xxxxxx.txtの内容は修正する必要がある
-# ・先頭に http://www.excite.co.jp
-my_crawl.set_urls("./data/excite_headline_"+params["d"]+".txt")
+# クローリング先のURL
+my_crawl.urls.push("http://news.biglobe.ne.jp/hot/")
 
-# スクレイピングする記事の日付
+# クローリングする記事の日付
 # 指定しなければ現在の日付
 my_crawl.date = params["d"]
 
+# クローリングする階層を設定
+my_crawl.depth_limit = 10
+
+# フォーカスクローリングのパターンを設定
+my_crawl.focus_pattern = 'index_\d+'
+
 # 取得するURLのXpathを設定
-my_crawl.url_xpath = '//div[@class="relStory"]//a'
+my_crawl.url_xpath = '//ul[@class="nS"]//a[contains(@href,'+params["d"][2..7]+')]'
 
 # セーブするファイルの名前
-my_crawl.filename = "excite_source"
+my_crawl.filename = "biglobe_headline"
 
-# スクレイピング
-my_crawl.scrape_w
+# クローリング
+my_crawl.crawl
 

@@ -16,9 +16,9 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
-# 先頭に
-# http://news.infoseek.co.jp
-# をつけてtopicsをarticleに変換する
+# infoseek_headline_20xxxxxx.txtの内容は修正する必要がある
+# ・先頭に http://news.infoseek.co.jp
+# ・topics => article
 my_crawl.set_urls("./data/infoseek_headline_"+params["d"]+".txt")
 
 # スクレイピングする記事の日付
@@ -32,5 +32,5 @@ my_crawl.url_xpath = '//ul[@class="link-list"]//a'
 my_crawl.filename = "infoseek_source"
 
 # スクレイピング
-my_crawl.scrape
+my_crawl.scrape_w
 

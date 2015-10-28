@@ -29,5 +29,5 @@ my_crawl.url_xpath = '//div[@class="ynDetailRelArticle"]//a'
 my_crawl.filename = "yahoo_source"
 
 # スクレイピング
-my_crawl.scrape
+my_crawl.scrape_w
 

@@ -29,5 +29,5 @@ my_crawl.url_xpath = '//span[@class="list-title-news"]/../../..//a'
 my_crawl.filename = "goo_source"
 
 # スクレイピング
-my_crawl.scrape
+my_crawl.scrape_w
 

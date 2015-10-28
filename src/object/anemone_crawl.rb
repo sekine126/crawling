@@ -49,8 +49,9 @@ class AnemoneCrawl
 
         anemone.on_pages_like(/#{@focus_pattern}/) do |page|
           count += 1
-          print "crawling...#{count} pages\r"
-          do_scrape(page.url)
+          c = do_scrape(page.url)
+          puts "==> get urls : " + c.to_s
+          print "crawling...#{count}\r"
           STDOUT.flush
         end
       end
@@ -65,10 +66,27 @@ class AnemoneCrawl
     @urls.each do |url|
       count += 1
       puts "==> " + url
+      c = do_scrape(url)
+      puts "==> get urls : " + c.to_s
       print "scraping...#{get_percent(count,@urls.size)}%\r"
+      sleep(@delay)
+      STDOUT.flush
+    end
+    save_file
+  end
+
+  def scrape_w
+    set_options
+    @get_urls = []
+    count = 0
+    @urls.each do |url|
+      count += 1
+      puts "==> " + url
       @get_urls.push("##")
       @get_urls.push(url)
-      do_scrape(url)
+      c = do_scrape(url)
+      puts "==> get urls : " + c.to_s
+      print "scraping...#{get_percent(count,@urls.size)}%\r"
       sleep(@delay)
       STDOUT.flush
     end
@@ -96,7 +114,9 @@ class AnemoneCrawl
   end
 
   def do_scrape(url)
+    count = 0
     charset = nil
+    url = url.strip.delete("\n\r")
     encoded_url = URI.encode(url.to_s)
     begin
       html = open(encoded_url) do |f|
@@ -104,15 +124,15 @@ class AnemoneCrawl
         f.read 
       end
     rescue OpenURI::HTTPError => e
+      puts "Error: uri error"
       return
     end
     doc = Nokogiri::HTML.parse(html, nil, charset)
-    count = 0
     doc.xpath(@url_xpath).each do |node|
       count += 1
       @get_urls.push(node.attribute('href').value)
     end
-    puts "==> get urls : " + count.to_s
+    count
   end
 
   def get_percent(x,y)

@@ -17,7 +17,6 @@ my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
 # livedoor_headline_20xxxxxx.txtの内容は修正する必要がある
-# ・1,2行目を削除
 # ・topics => article
 # ・?以降を削除
 my_crawl.set_urls("./data/livedoor_headline_"+params["d"]+".txt")
@@ -33,5 +32,5 @@ my_crawl.url_xpath = '//ul[@class="relatedArticleList"]//a'
 my_crawl.filename = "livedoor_source"
 
 # スクレイピング
-my_crawl.scrape
+my_crawl.scrape_w
 
