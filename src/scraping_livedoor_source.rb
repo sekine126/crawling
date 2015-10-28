@@ -16,17 +16,21 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
-my_crawl.set_urls("./data/yahoo_headline_"+params["d"]+".txt")
+# livedoor_headline_20xxxxxx.txtの内容は修正する必要がある
+# ・1,2行目を削除
+# ・topics => article
+# ・?以降を削除
+my_crawl.set_urls("./data/livedoor_headline_"+params["d"]+".txt")
 
 # スクレイピングする記事の日付
 # 指定しなければ現在の日付
 my_crawl.date = params["d"]
 
 # 取得するURLのXpathを設定
-my_crawl.url_xpath = '//div[@class="ynDetailRelArticle"]//a'
+my_crawl.url_xpath = '//ul[@class="relatedArticleList"]//a'
 
 # セーブするファイルの名前
-my_crawl.filename = "yahoo_source"
+my_crawl.filename = "livedoor_source"
 
 # スクレイピング
 my_crawl.scrape

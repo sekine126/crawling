@@ -97,8 +97,9 @@ class AnemoneCrawl
 
   def do_scrape(url)
     charset = nil
+    encoded_url = URI.encode(url.to_s)
     begin
-      html = open(url) do |f|
+      html = open(encoded_url) do |f|
         charset = f.charset
         f.read 
       end

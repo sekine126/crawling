@@ -16,17 +16,22 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
-my_crawl.set_urls("./data/yahoo_headline_"+params["d"]+".txt")
+# 先頭に
+# http://news.infoseek.co.jp
+# をつけてtopicsをarticleに変換する
+my_crawl.set_urls("./data/infoseek_headline_"+params["d"]+".txt")
+
+my_crawl.delay = 20
 
 # スクレイピングする記事の日付
 # 指定しなければ現在の日付
 my_crawl.date = params["d"]
 
 # 取得するURLのXpathを設定
-my_crawl.url_xpath = '//div[@class="ynDetailRelArticle"]//a'
+my_crawl.url_xpath = '//ul[@class="link-list"]//a'
 
 # セーブするファイルの名前
-my_crawl.filename = "yahoo_source"
+my_crawl.filename = "infoseek_source"
 
 # スクレイピング
 my_crawl.scrape
