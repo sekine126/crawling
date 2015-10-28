@@ -32,7 +32,7 @@ my_crawl.date = params["d"]
 my_crawl.url_xpath = '//div[@class="newsList"]//a[contains(@href,"'+params["d"]+'")]'
 
 # セーブするファイルの名前
-my_crawl.filename = "excite_source"
+my_crawl.filename = "excite_headline"
 
 # スクレイピング
 my_crawl.scrape
