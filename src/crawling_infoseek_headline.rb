@@ -23,7 +23,7 @@ my_crawl.urls.push("http://news.infoseek.co.jp/topics/backnumber/")
 my_crawl.date = params["d"]
 
 # クローリングする階層を設定
-my_crawl.depth_limit = 20
+my_crawl.depth_limit = 10
 
 # フォーカスクローリングのパターンを設定
 my_crawl.focus_pattern = '\/\?p=\d+'
