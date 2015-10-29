@@ -16,6 +16,8 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
+# goo_headline2_20xxxxxx.txtの内容は修正する必要がある
+# ・先頭に http://news.goo.ne.jp
 my_crawl.set_urls("./data/goo_headline2_"+params["d"]+".txt")
 
 # スクレイピングする記事の日付

@@ -28,6 +28,7 @@ class AnemoneCrawl
   end
 
   def set_urls(filename)
+    @urls = []
     File.foreach(filename) do |url|
       @urls.push(url)
     end
@@ -37,7 +38,7 @@ class AnemoneCrawl
     set_options
     @get_urls = []
     @urls.each do |url|
-      puts "==> " + url
+      puts "==> start url = " + url
       count = 0
       Anemone.crawl(url, @opts) do |anemone|
         # 条件に一致するリンクだけを残す
@@ -48,6 +49,7 @@ class AnemoneCrawl
         end
 
         anemone.on_pages_like(/#{@focus_pattern}/) do |page|
+          puts "==> crawling url = " + page.url.to_s
           count += 1
           c = do_scrape(page.url)
           puts "==> get urls : " + c.to_s

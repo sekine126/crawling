@@ -16,24 +16,39 @@ end
 my_crawl = AnemoneCrawl.new
 
 # クローリング先のURL
-my_crawl.urls.push("http://news.yahoo.co.jp/flash")
+my_crawl.urls.push("http://news.yahoo.co.jp/list/?d="+params["d"])
 
 # クローリングする記事の日付
 # 指定しなければ現在の日付
 my_crawl.date = params["d"]
 
 # クローリングする階層を設定
-my_crawl.depth_limit = 40
+my_crawl.depth_limit = 5
 
 # フォーカスクローリングのパターンを設定
-my_crawl.focus_pattern = 'flash\?p=\d+'
+my_crawl.focus_pattern = params["d"]+'\&p=\d+'
 
 # 取得するURLのXpathを設定
-my_crawl.url_xpath = '//ul[@class="listBd"]//a[contains(@href,'+my_crawl.date+')]'
+y = params["d"][0..3]
+m = params["d"][4..5]
+d = params["d"][6..7]
+my_crawl.url_xpath = '//span[@class="date"]/../span[contains(./text(),"'+y+'年'+m+'月'+d+'日")]/../../../a'
 
 # セーブするファイルの名前
 my_crawl.filename = "yahoo_headline"
 
 # クローリング
 my_crawl.crawl
+
+# スクレイピング先のURL
+my_crawl.set_urls("./data/yahoo_headline_"+params["d"]+".txt")
+
+# 取得するURLのXpathを設定
+my_crawl.url_xpath = '//h2[@class="newsTitle"]/a'
+
+# セーブするファイルの名前
+my_crawl.filename = "yahoo_headline2"
+
+# スクレイピング
+my_crawl.scrape
 

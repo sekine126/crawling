@@ -16,7 +16,7 @@ end
 my_crawl = AnemoneCrawl.new
 
 # スクレイピング先のURL
-my_crawl.set_urls("./data/yahoo_headline_"+params["d"]+".txt")
+my_crawl.set_urls("./data/yahoo_headline2_"+params["d"]+".txt")
 
 # スクレイピングする記事の日付
 # 指定しなければ現在の日付
